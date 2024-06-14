@@ -6,7 +6,7 @@ using InputManager;
 public class Main : MonoBehaviour
 {
     private OculusTouch oculusTouch;
-    private GameObject point;
+    private Point point;
 
     // Start is called before the first frame update
     void Start()
@@ -20,16 +20,17 @@ public class Main : MonoBehaviour
             handSpeed: 0.01f
         );
 
-        this.point = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        this.point.transform.position = new Vector3(0, 0, 0);
-        this.point.transform.localScale = new Vector3(1, 1, 1) * 0.05f;
+        this.point = new Point(new Vector3(0, 0, 1));
     }
 
     // Update is called once per frame
     void Update()
     {
         this.oculusTouch.UpdateFirst();
-        this.point.transform.position = this.oculusTouch.GetPositionR();
+
+        Vector3 nowPosition = this.point.GetPosition();
+        this.point.UpdatePosition(nowPosition + new Vector3(0.01f, 0, 0));
+        
         this.oculusTouch.UpdateFirst();
     }
 
