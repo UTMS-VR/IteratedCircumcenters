@@ -40,7 +40,7 @@ public class Main : MonoBehaviour
         this.points.Add(new Point(oculusTouch, new Vector3(0, 0, 1)));
         this.points.Add(new Point(oculusTouch, new Vector3(0.5f, 0, 0.7f)));
         this.points.Add(new Point(oculusTouch, new Vector3(-0.5f, 0, 0.7f)));
-        this.points.Add(new Point(oculusTouch, new Vector3(0, 0.5f, 0.7f)));
+        this.points.Add(new Point(oculusTouch, new Vector3(0, 0.4f, 0.7f)));
 
         Vector3 p1 = points[0].GetPosition();
         Vector3 p2 = points[1].GetPosition();

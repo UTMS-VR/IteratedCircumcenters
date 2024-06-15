@@ -9,9 +9,9 @@ public class Circumcenter
     {
         float[][] mat = new float[3][]
         {
-            new float[] {p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2]},
-            new float[] {p3[0] - p1[0], p3[1] - p1[1], p3[2] - p1[2]},
-            new float[] {p4[0] - p1[0], p4[1] - p1[1], p4[2] - p1[2]},
+            new float[] { p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2] },
+            new float[] { p3[0] - p1[0], p3[1] - p1[1], p3[2] - p1[2] },
+            new float[] { p4[0] - p1[0], p4[1] - p1[1], p4[2] - p1[2] },
         };
         float det = MatrixCalculation.determinant(mat);
         float[] center;
@@ -27,17 +27,17 @@ public class Circumcenter
             float[] sizesq = {
                     MatrixCalculation.dotmul(mat[0], mat[0]),
                     MatrixCalculation.dotmul(mat[1], mat[1]),
-                    MatrixCalculation.dotmul(mat[2], mat[2])
+                    MatrixCalculation.dotmul(mat[2], mat[2]),
                 };
             float[] par = {
-                    MatrixCalculation.dotmul(a[0],sizesq)/2,
-                    MatrixCalculation.dotmul(a[1],sizesq)/2,
-                    MatrixCalculation.dotmul(a[2],sizesq)/2
+                    MatrixCalculation.dotmul(a[0],sizesq) / 2,
+                    MatrixCalculation.dotmul(a[1],sizesq) / 2,
+                    MatrixCalculation.dotmul(a[2],sizesq) / 2,
                 };
             center = new float[3] {
                 MatrixCalculation.dotmul(mattp[0], par) + p1[0],
                 MatrixCalculation.dotmul(mattp[1], par) + p1[1],
-                MatrixCalculation.dotmul(mattp[2], par) + p1[2]
+                MatrixCalculation.dotmul(mattp[2], par) + p1[2],
             };
 
         }

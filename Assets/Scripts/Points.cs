@@ -10,7 +10,7 @@ public class Point
     private Vector3 moveBasePosition = Vector3.zero;
     private Vector3 moveBaseHandPosition = Vector3.zero;
     private GameObject sphere;
-    public static LogicalButton? moveButton = LogicalOVRInput.RawButton.RIndexTrigger;
+    public static LogicalButton moveButton = LogicalOVRInput.RawButton.RIndexTrigger;
     public Point(OculusTouch oculusTouch, Vector3 position)
     {
         this.oculusTouch = oculusTouch;
