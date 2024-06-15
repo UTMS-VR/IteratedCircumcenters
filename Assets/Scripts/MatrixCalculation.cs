@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MatrixCalculation
 {
-    public static float determinant(float[][] a)
+    public static float Determinant(float[][] a)
     {
         float det = a[1][1] * a[2][2] * a[0][0]
                     + a[1][2] * a[2][0] * a[0][1]
@@ -16,9 +16,9 @@ public class MatrixCalculation
         return det;
     }
 
-    public static float[][] inverse(float[][] a)
+    public static float[][] Inverse(float[][] a)
     {
-        float det = determinant(a);
+        float det = Determinant(a);
         float[][] inv;
         if (Math.Abs(det) < 0.000001f)
         {
@@ -56,7 +56,7 @@ public class MatrixCalculation
         return inv;
     }
 
-    public static float[][] transpose(float[][] a)
+    public static float[][] Transpose(float[][] a)
     {
         float[][] tp = new float[3][]
         {
@@ -75,13 +75,13 @@ public class MatrixCalculation
         return tp;
     }
 
-    public static float dotmul(float[] a, float[] b)
+    public static float Dotmul(float[] a, float[] b)
     {
         float ans = a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
         return ans;
     }
 
-    public static float[][] matmul(float[][] a, float[][] b)
+    public static float[][] Matmul(float[][] a, float[][] b)
     {
         float[][] ans = new float[3][]
         {
@@ -89,12 +89,12 @@ public class MatrixCalculation
             new float[] { 0, 0, 0 },
             new float[] { 0, 0, 0 },
         };
-        float[][] bt = transpose(b);
+        float[][] bt = Transpose(b);
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
-                ans[i][j] = dotmul(a[i], bt[j]);
+                ans[i][j] = Dotmul(a[i], bt[j]);
             }
         }
         return ans;

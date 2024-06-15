@@ -71,13 +71,13 @@ public class Points
         return new Vector3(p[0], p[1], p[2]);
     }
 
-    public static Vector3 VectorCircumcenter(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+    public static Vector3 VectorCircumcenter3D(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
     {
         float[] q1 = VectorToArray(p1);
         float[] q2 = VectorToArray(p2);
         float[] q3 = VectorToArray(p3);
         float[] q4 = VectorToArray(p4);
-        float[] q5 = Circumcenter.circumcenter3d(q1, q2, q3, q4);
+        float[] q5 = Circumcenter.Circumcenter3D(q1, q2, q3, q4);
         Vector3 p5 = ArrayToVector(q5);
         return p5;
     }

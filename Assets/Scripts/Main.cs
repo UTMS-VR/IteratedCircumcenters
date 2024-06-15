@@ -46,7 +46,7 @@ public class Main : MonoBehaviour
         Vector3 p2 = points[1].GetPosition();
         Vector3 p3 = points[2].GetPosition();
         Vector3 p4 = points[3].GetPosition();
-        Vector3 p5 = Points.VectorCircumcenter(p1, p2, p3, p4);
+        Vector3 p5 = Points.VectorCircumcenter3D(p1, p2, p3, p4);
         this.points.Add(new Point(oculusTouch, p5));
 
         // for (int i = 0; i < 4; i++)
@@ -87,7 +87,7 @@ public class Main : MonoBehaviour
         Vector3 p2 = points[1].GetPosition();
         Vector3 p3 = points[2].GetPosition();
         Vector3 p4 = points[3].GetPosition();
-        Vector3 p5 = Points.VectorCircumcenter(p1, p2, p3, p4);
+        Vector3 p5 = Points.VectorCircumcenter3D(p1, p2, p3, p4);
         this.points[4].SetPosition(p5);
 
         this.oculusTouch.UpdateFirst();
