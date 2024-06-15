@@ -58,7 +58,12 @@ public class MatrixCalculation
 
     public static float[][] transpose(float[][] a)
     {
-        float[][] tp = new float[3][];
+        float[][] tp = new float[3][]
+        {
+            new float[] {0,0,0},
+            new float[] {0,0,0},
+            new float[] {0,0,0},
+        };
 
         for (int i = 0; i < 3; i++)
         {
@@ -78,7 +83,12 @@ public class MatrixCalculation
 
     public static float[][] matmul(float[][] a, float[][] b)
     {
-        float[][] ans = new float[3][];
+        float[][] ans = new float[3][]
+        {
+            new float[] {0,0,0},
+            new float[] {0,0,0},
+            new float[] {0,0,0},
+        };
         float[][] bt = transpose(b);
         for (int i = 0; i < 3; i++)
         {

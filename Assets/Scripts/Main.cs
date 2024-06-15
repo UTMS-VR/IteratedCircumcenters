@@ -42,6 +42,13 @@ public class Main : MonoBehaviour
         this.points.Add(new Point(oculusTouch, new Vector3(-0.5f, 0, 0.7f)));
         this.points.Add(new Point(oculusTouch, new Vector3(0, 0.5f, 0.7f)));
 
+        Vector3 p1 = points[0].GetPosition();
+        Vector3 p2 = points[1].GetPosition();
+        Vector3 p3 = points[2].GetPosition();
+        Vector3 p4 = points[3].GetPosition();
+        Vector3 p5 = Points.VectorCircumcenter(p1, p2, p3, p4);
+        this.points.Add(new Point(oculusTouch, p5));
+
         // for (int i = 0; i < 4; i++)
         // {
         //     this.contextMenu.AddItem(new MenuItem("P" + i, () => {
@@ -75,6 +82,13 @@ public class Main : MonoBehaviour
                 this.points[i].Move();
             }
         }
+
+        Vector3 p1 = points[0].GetPosition();
+        Vector3 p2 = points[1].GetPosition();
+        Vector3 p3 = points[2].GetPosition();
+        Vector3 p4 = points[3].GetPosition();
+        Vector3 p5 = Points.VectorCircumcenter(p1, p2, p3, p4);
+        this.points[4].SetPosition(p5);
 
         this.oculusTouch.UpdateFirst();
     }

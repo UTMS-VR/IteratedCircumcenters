@@ -51,18 +51,34 @@ public class Point
 
 public class Points 
 {
-    private List<Point> points;
+    // private List<Point> points;
 
-    public Points(List<Point> points)
+    // public Points(List<Point> points)
+    // {
+    //     foreach (Point point in points)
+    //     {
+    //         this.points.Add(point);
+    //     }
+    // }
+
+    private static float[] VectorToArray(Vector3 p)
     {
-        foreach (Point point in points)
-        {
-            this.points.Add(point);
-        }
+        return new float[3] {p.x, p.y, p.z};
     }
 
-    // private Vector3 Circumcenter(Vector3 point1, Vector3 point2, Vector3 point3, Vector3 point4)
-    // {
+    private static Vector3 ArrayToVector(float[] p)
+    {
+        return new Vector3(p[0], p[1], p[2]);
+    }
 
-    // }
+    public static Vector3 VectorCircumcenter(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+    {
+        float[] q1 = VectorToArray(p1);
+        float[] q2 = VectorToArray(p2);
+        float[] q3 = VectorToArray(p3);
+        float[] q4 = VectorToArray(p4);
+        float[] q5 = Circumcenter.circumcenter3d(q1, q2, q3, q4);
+        Vector3 p5 = ArrayToVector(q5);
+        return p5;
+    }
 }
