@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Circumcenter
 {
-    public static float[] circumcenter3d(float[] x, float[] y, float[] z, float[] w)
+    public static float[] circumcenter3d(float[] p1, float[] p2, float[] p3, float[] p4)
     {
         float[][] mat = new float[3][]
         {
-            new float[] {y[0] - x[0], y[1] - x[1], y[2] - x[2]},
-            new float[] {z[0] - x[0], z[1] - x[1], z[2] - x[2]},
-            new float[] {w[0] - x[0], w[1] - x[1], w[2] - x[2]},
+            nep4 float[] {p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2]},
+            nep4 float[] {p3[0] - p1[0], p3[1] - p1[1], p3[2] - p1[2]},
+            nep4 float[] {p4[0] - p1[0], p4[1] - p1[1], p4[2] - p1[2]},
         };
         float det = MatrixCalculation.determinant(mat);
         float[] center;
@@ -35,9 +35,9 @@ public class Circumcenter
                     MatrixCalculation.dotmul(a[2],sizesq)/2
                 };
             center = new float[3] {
-                MatrixCalculation.dotmul(mattp[0], par) + x[0],
-                MatrixCalculation.dotmul(mattp[1], par) + x[1],
-                MatrixCalculation.dotmul(mattp[2], par) + x[2]
+                MatrixCalculation.dotmul(mattp[0], par) + p1[0],
+                MatrixCalculation.dotmul(mattp[1], par) + p1[1],
+                MatrixCalculation.dotmul(mattp[2], par) + p1[2]
             };
 
         }
