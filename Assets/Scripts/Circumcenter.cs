@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Circumcenter
 {
-    public static float[] Circumcenter3D(float[] p1, float[] p2, float[] p3, float[] p4)
+    public static float[] Circumcenter3D(float[] p0, float[] p1, float[] p2, float[] p3)
     {
         float[][] mat = new float[3][]
         {
-            new float[] { p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2] },
-            new float[] { p3[0] - p1[0], p3[1] - p1[1], p3[2] - p1[2] },
-            new float[] { p4[0] - p1[0], p4[1] - p1[1], p4[2] - p1[2] },
+            new float[] { p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2] },
+            new float[] { p2[0] - p0[0], p2[1] - p0[1], p2[2] - p0[2] },
+            new float[] { p3[0] - p0[0], p3[1] - p0[1], p3[2] - p0[2] },
         };
         float det = MatrixCalculation.Determinant(mat);
         float[] center;
@@ -35,9 +35,9 @@ public class Circumcenter
                     MatrixCalculation.Dotmul(a[2],sizesq) / 2,
                 };
             center = new float[3] {
-                MatrixCalculation.Dotmul(mattp[0], par) + p1[0],
-                MatrixCalculation.Dotmul(mattp[1], par) + p1[1],
-                MatrixCalculation.Dotmul(mattp[2], par) + p1[2],
+                MatrixCalculation.Dotmul(mattp[0], par) + p0[0],
+                MatrixCalculation.Dotmul(mattp[1], par) + p0[1],
+                MatrixCalculation.Dotmul(mattp[2], par) + p0[2],
             };
 
         }

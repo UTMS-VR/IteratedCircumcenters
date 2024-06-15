@@ -8,8 +8,8 @@ public class Main : MonoBehaviour
 {
     private OculusTouch oculusTouch;
     private ContextMenu.ContextMenu contextMenu;
-    private List<Point> points = new List<Point>();
     private int state = -1;
+    private Points points;
 
     // Start is called before the first frame update
     void Start()
@@ -36,25 +36,14 @@ public class Main : MonoBehaviour
         this.contextMenu.AddItem(new MenuItem("Xボタン : 決定", () => {}));
         this.contextMenu.AddItem(new MenuItem("", () => {}));
         this.contextMenu.Open();
+        
+        Point point0 = new Point(this.oculusTouch, new Vector3(0, 0, 1));
+        Point point1 = new Point(this.oculusTouch, new Vector3(0.5f, 0, 0.7f));
+        Point point2 = new Point(this.oculusTouch, new Vector3(-0.5f, 0, 0.7f));
+        Point point3 = new Point(this.oculusTouch, new Vector3(0, 0.4f, 0.7f));
 
-        this.points.Add(new Point(oculusTouch, new Vector3(0, 0, 1)));
-        this.points.Add(new Point(oculusTouch, new Vector3(0.5f, 0, 0.7f)));
-        this.points.Add(new Point(oculusTouch, new Vector3(-0.5f, 0, 0.7f)));
-        this.points.Add(new Point(oculusTouch, new Vector3(0, 0.4f, 0.7f)));
+        this.points = new Points(this.oculusTouch, point0, point1, point2, point3);
 
-        Vector3 p1 = points[0].GetPosition();
-        Vector3 p2 = points[1].GetPosition();
-        Vector3 p3 = points[2].GetPosition();
-        Vector3 p4 = points[3].GetPosition();
-        Vector3 p5 = Points.VectorCircumcenter3D(p1, p2, p3, p4);
-        this.points.Add(new Point(oculusTouch, p5));
-
-        // for (int i = 0; i < 4; i++)
-        // {
-        //     this.contextMenu.AddItem(new MenuItem("P" + i, () => {
-        //         this.state = i;
-        //     }));
-        // }
         this.contextMenu.AddItem(new MenuItem("P" + 0, () => {
             this.state = 0;
         }));
@@ -79,16 +68,11 @@ public class Main : MonoBehaviour
         {
             if (this.state == i)
             {
-                this.points[i].Move();
+                this.points.Move(i);
             }
         }
 
-        Vector3 p1 = points[0].GetPosition();
-        Vector3 p2 = points[1].GetPosition();
-        Vector3 p3 = points[2].GetPosition();
-        Vector3 p4 = points[3].GetPosition();
-        Vector3 p5 = Points.VectorCircumcenter3D(p1, p2, p3, p4);
-        this.points[4].SetPosition(p5);
+        this.points.Update();
 
         this.oculusTouch.UpdateFirst();
     }
