@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MatrixCalculation
 {
-    public static float determinant(float[,] a)
+    public static float determinant(float[3,3] a)
     {
         float det = a[1,1] * a[2,2] * a[3,3] 
                     + a[1,2] * a[2,3] * a[3,1] 
