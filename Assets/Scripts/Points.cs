@@ -48,3 +48,21 @@ public class Point
         }
     }
 }
+
+public class Points 
+{
+    private List<Point> points;
+
+    public Points(List<Point> points)
+    {
+        foreach (Point point in points)
+        {
+            this.points.Add(point);
+        }
+    }
+
+    // private Vector3 Circumcenter(Vector3 point1, Vector3 point2, Vector3 point3, Vector3 point4)
+    // {
+
+    // }
+}
