@@ -32,7 +32,7 @@ public class Main : MonoBehaviour
         );
         this.contextMenu.AddItem(new MenuItem("左人差し指 : メニューウィンドウの開閉", () => {}));
         this.contextMenu.AddItem(new MenuItem("左スティック : カーソルの移動", () => {}));
-        this.contextMenu.AddItem(new MenuItem("Xボタン : メニューでの決定ボタン", () => {}));
+        this.contextMenu.AddItem(new MenuItem("Xボタン : 決定", () => {}));
         this.contextMenu.AddItem(new MenuItem("", () => {}));
         this.contextMenu.Open();
 
@@ -43,6 +43,7 @@ public class Main : MonoBehaviour
     void Update()
     {
         this.oculusTouch.UpdateFirst();
+        this.contextMenu.Update();
 
         this.point.Move();
 
