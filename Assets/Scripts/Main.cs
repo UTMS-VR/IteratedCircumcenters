@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using InputManager;
+using ContextMenu;
 
 public class Main : MonoBehaviour
 {
     private OculusTouch oculusTouch;
+    private ContextMenu.ContextMenu contextMenu;
     private Point point;
 
     // Start is called before the first frame update
@@ -19,6 +21,20 @@ public class Main : MonoBehaviour
             handScale: 0.03f,
             handSpeed: 0.01f
         );
+
+        this.contextMenu = new ContextMenu.ContextMenu(
+            this.oculusTouch,
+            upButton: LogicalOVRInput.RawButton.LStickUp,
+            downButton: LogicalOVRInput.RawButton.LStickDown,
+            confirmButton: LogicalOVRInput.RawButton.X,
+            toggleMenuButton: LogicalOVRInput.RawButton.LIndexTrigger,
+            lockLevel: null
+        );
+        this.contextMenu.AddItem(new MenuItem("左人差し指 : メニューウィンドウの開閉", () => {}));
+        this.contextMenu.AddItem(new MenuItem("左スティック : カーソルの移動", () => {}));
+        this.contextMenu.AddItem(new MenuItem("Xボタン : メニューでの決定ボタン", () => {}));
+        this.contextMenu.AddItem(new MenuItem("", () => {}));
+        this.contextMenu.Open();
 
         this.point = new Point(oculusTouch, new Vector3(0, 0, 1));
     }
