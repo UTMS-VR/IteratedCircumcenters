@@ -8,7 +8,8 @@ public class Main : MonoBehaviour
 {
     private OculusTouch oculusTouch;
     private ContextMenu.ContextMenu contextMenu;
-    private Point point;
+    private List<Point> points = new List<Point>();
+    private int state = -1;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +37,29 @@ public class Main : MonoBehaviour
         this.contextMenu.AddItem(new MenuItem("", () => {}));
         this.contextMenu.Open();
 
-        this.point = new Point(oculusTouch, new Vector3(0, 0, 1));
+        this.points.Add(new Point(oculusTouch, new Vector3(0, 0, 1)));
+        this.points.Add(new Point(oculusTouch, new Vector3(0.5f, 0, 0.7f)));
+        this.points.Add(new Point(oculusTouch, new Vector3(-0.5f, 0, 0.7f)));
+        this.points.Add(new Point(oculusTouch, new Vector3(0, 0.5f, 0.7f)));
+
+        // for (int i = 0; i < 4; i++)
+        // {
+        //     this.contextMenu.AddItem(new MenuItem("P" + i, () => {
+        //         this.state = i;
+        //     }));
+        // }
+        this.contextMenu.AddItem(new MenuItem("P" + 0, () => {
+            this.state = 0;
+        }));
+        this.contextMenu.AddItem(new MenuItem("P" + 1, () => {
+            this.state = 1;
+        }));
+        this.contextMenu.AddItem(new MenuItem("P" + 2, () => {
+            this.state = 2;
+        }));
+        this.contextMenu.AddItem(new MenuItem("P" + 3, () => {
+            this.state = 3;
+        }));
     }
 
     // Update is called once per frame
@@ -45,7 +68,13 @@ public class Main : MonoBehaviour
         this.oculusTouch.UpdateFirst();
         this.contextMenu.Update();
 
-        this.point.Move();
+        for (int i = 0; i < 4; i++)
+        {
+            if (this.state == i)
+            {
+                this.points[i].Move();
+            }
+        }
 
         this.oculusTouch.UpdateFirst();
     }
