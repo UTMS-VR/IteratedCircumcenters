@@ -20,7 +20,7 @@ public class Main : MonoBehaviour
             handSpeed: 0.01f
         );
 
-        this.point = new Point(new Vector3(0, 0, 1));
+        this.point = new Point(oculusTouch, new Vector3(0, 0, 1));
     }
 
     // Update is called once per frame
@@ -28,9 +28,8 @@ public class Main : MonoBehaviour
     {
         this.oculusTouch.UpdateFirst();
 
-        Vector3 nowPosition = this.point.GetPosition();
-        this.point.UpdatePosition(nowPosition + new Vector3(0.01f, 0, 0));
-        
+        this.point.Move();
+
         this.oculusTouch.UpdateFirst();
     }
 
