@@ -60,9 +60,9 @@ public class MatrixCalculation
     {
         float[][] tp = new float[3][]
         {
-            new float[] {0,0,0},
-            new float[] {0,0,0},
-            new float[] {0,0,0},
+            new float[] {0, 0, 0},
+            new float[] {0, 0, 0},
+            new float[] {0, 0, 0},
         };
 
         for (int i = 0; i < 3; i++)
@@ -85,9 +85,9 @@ public class MatrixCalculation
     {
         float[][] ans = new float[3][]
         {
-            new float[] {0,0,0},
-            new float[] {0,0,0},
-            new float[] {0,0,0},
+            new float[] {0, 0, 0},
+            new float[] {0, 0, 0},
+            new float[] {0, 0, 0},
         };
         float[][] bt = transpose(b);
         for (int i = 0; i < 3; i++)
