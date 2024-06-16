@@ -20,7 +20,7 @@ public class Tetrahedron
 
     private Curve Edge(Point start, Point end)
     {
-        Curve edge = new OpenCurve(new List<Vector3> { start.GetPosition(), end.GetPosition() });
+        Curve edge = new OpenCurve(new List<Vector3> { start.GetPosition(), end.GetPosition() }, radius: 0.001f);
         return edge;
     }
 
