@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using InputManager;
 using ContextMenu;
+using DrawCurve;
 
 public class Main : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Main : MonoBehaviour
     private ContextMenu.ContextMenu contextMenu;
     private int state = -1;
     private Points points;
+    private Tetrahedra tetrahedra;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +58,8 @@ public class Main : MonoBehaviour
         this.contextMenu.AddItem(new MenuItem("P" + 3, () => {
             this.state = 3;
         }));
+
+        this.tetrahedra = new Tetrahedra(this.points);
     }
 
     // Update is called once per frame
@@ -73,6 +77,11 @@ public class Main : MonoBehaviour
         }
 
         this.points.Update();
+
+        for (int i = 0; i < 8; i++)
+        {
+            this.tetrahedra.Get(i).DrawMesh();
+        }
 
         this.oculusTouch.UpdateFirst();
     }

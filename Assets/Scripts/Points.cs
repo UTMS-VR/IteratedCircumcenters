@@ -52,7 +52,7 @@ public class Point
 public class Points 
 {
     private OculusTouch oculusTouch;
-    public List<Point> points = new List<Point>();
+    private List<Point> points = new List<Point>();
 
     public Points(OculusTouch oculusTouch, Point point0, Point point1, Point point2, Point point3)
     {
@@ -77,6 +77,11 @@ public class Points
         Vector3 p3 = this.points[n - 1].GetPosition();
         Vector3 p4 = VectorCircumcenter3D(p0, p1, p2, p3);
         this.points.Add(new Point(this.oculusTouch, p4));
+    }
+
+    public Point Get(int i)
+    {
+        return this.points[i];
     }
 
     public void Move(int i)
