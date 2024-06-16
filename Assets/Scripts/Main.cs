@@ -4,7 +4,6 @@ using UnityEngine;
 using InputManager;
 using ContextMenu;
 using DrawCurve;
-using TMPro;
 
 public class Main : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class Main : MonoBehaviour
     private Points points;
     private Tetrahedra tetrahedra;
     private int numberOfPoints = 11;
-    private TextMeshPro textMeshPro;
+    // private TextMeshPro textMeshPro;
 
     // Start is called before the first frame update
     void Start()
@@ -49,14 +48,6 @@ public class Main : MonoBehaviour
         this.points = new Points(this.oculusTouch, point0, point1, point2, point3, this.numberOfPoints);
 
         this.tetrahedra = new Tetrahedra(this.points);
-
-        GameObject textObj = new GameObject("TextMeshPro 3D Text");
-        textObj.transform.position = new Vector3(0, 0, 1);
-        textMeshPro = textObj.AddComponent<TextMeshPro>();
-        textMeshPro.text = "Initial 3D Text";
-        textMeshPro.fontSize = 0.5f;
-        textMeshPro.alignment = TextAlignmentOptions.Center;
-        textMeshPro.color = Color.white;
     }
 
     // Update is called once per frame
