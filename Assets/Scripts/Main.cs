@@ -8,7 +8,7 @@ using DrawCurve;
 public class Main : MonoBehaviour
 {
     private OculusTouch oculusTouch;
-    private ContextMenu.ContextMenu contextMenu;
+    // private ContextMenu.ContextMenu contextMenu;
     private Points points;
     private Tetrahedra tetrahedra;
     private int numberOfPoints = 11;

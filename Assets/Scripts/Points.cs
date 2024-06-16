@@ -31,6 +31,11 @@ public class Point
         return this.position;
     }
 
+    public GameObject GetSphere()
+    {
+        return this.sphere;
+    }
+
     public void Move()
     {
         Vector3 nowPosition = this.oculusTouch.GetPositionR();
@@ -66,6 +71,12 @@ public class Points
         for (int i = 4; i < numberOfPoints; i++)
         {
             this.AddCercumcenter();
+        }
+
+        for (int i = 0; i < this.points.Count; i++)
+        {
+            float red = (this.points.Count - 1.0f - i) / (this.points.Count - 1.0f);
+            this.points[i].GetSphere().GetComponent<Renderer>().material.SetColor("_Color", new Color(red, 0.0f, 0.0f, 1.0f));
         }
     }
 
