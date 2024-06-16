@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using InputManager;
 using ContextMenu;
 using DrawCurve;
+using TMPro;
 
 public class Main : MonoBehaviour
 {
@@ -12,6 +14,19 @@ public class Main : MonoBehaviour
     private Points points;
     private Tetrahedra tetrahedra;
     private int numberOfPoints = 11;
+    [SerializeField] TextMeshProUGUI text0;
+    [SerializeField] TextMeshProUGUI text1;
+    [SerializeField] TextMeshProUGUI text2;
+    [SerializeField] TextMeshProUGUI text3;
+    [SerializeField] TextMeshProUGUI text4;
+    [SerializeField] TextMeshProUGUI text5;
+    [SerializeField] TextMeshProUGUI text6;
+    [SerializeField] TextMeshProUGUI text7;
+    [SerializeField] TextMeshProUGUI text8;
+    [SerializeField] TextMeshProUGUI text9;
+    [SerializeField] TextMeshProUGUI text10;
+    private Canvas canvas;
+    private TextMeshProUGUI tmpText;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +62,23 @@ public class Main : MonoBehaviour
         this.points = new Points(this.oculusTouch, point0, point1, point2, point3, this.numberOfPoints);
 
         this.tetrahedra = new Tetrahedra(this.points);
+
+        // Canvasの生成
+        canvas = new GameObject("Canvas").AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.gameObject.AddComponent<CanvasScaler>();
+        canvas.gameObject.AddComponent<GraphicRaycaster>();
+
+        // Textの生成
+        GameObject textObj = new GameObject("TextMeshPro Text");
+        textObj.transform.SetParent(canvas.transform);
+        tmpText = textObj.AddComponent<TextMeshProUGUI>();
+        tmpText.text = "Initial Text";
+        tmpText.fontSize = 24;
+        tmpText.alignment = TextAlignmentOptions.Center;
+        RectTransform textRect = tmpText.GetComponent<RectTransform>();
+        textRect.sizeDelta = new Vector2(400, 100);
+        textRect.anchoredPosition = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -75,6 +107,19 @@ public class Main : MonoBehaviour
         {
             this.tetrahedra.Get(i).DrawMesh();
         }
+
+        this.text0.text = "0";
+        this.text0.transform.position = this.points.Get(0).GetPosition();
+        this.text1.text = "1";
+        this.text2.text = "2";
+        this.text3.text = "3";
+        this.text4.text = "4";
+        this.text5.text = "5";
+        this.text6.text = "6";
+        this.text7.text = "7";
+        this.text8.text = "8";
+        this.text9.text = "9";
+        this.text10.text = "10";
 
         this.oculusTouch.UpdateFirst();
     }
