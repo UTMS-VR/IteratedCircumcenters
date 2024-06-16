@@ -33,7 +33,7 @@ public class Point
 
     public void Move()
     {
-        Vector3 nowPosition = oculusTouch.GetPositionR();
+        Vector3 nowPosition = this.oculusTouch.GetPositionR();
 
         if (oculusTouch.GetButtonDown(moveButton))
         {
