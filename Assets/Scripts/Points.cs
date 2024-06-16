@@ -51,9 +51,7 @@ public class Point
 
         if (oculusTouch.GetButton(moveButton))
         {
-            this.position = this.moveBasePosition + nowPosition - this.moveBaseHandPosition;
-            this.sphere.transform.position = this.position;
-            this.tag.UpdatePosition(this.position + new Vector3(0, 0.05f, 0));
+            this.SetPosition(this.moveBasePosition + nowPosition - this.moveBaseHandPosition);
         }
     }
 
