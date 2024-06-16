@@ -53,6 +53,7 @@ public class Points
 {
     private OculusTouch oculusTouch;
     private List<Point> points = new List<Point>();
+    private int movingPoint = -1;
 
     public Points(OculusTouch oculusTouch, Point point0, Point point1, Point point2, Point point3, int numberOfPoints)
     {
@@ -104,6 +105,36 @@ public class Points
             Vector3 p3 = this.points[n - 1].GetPosition();
             Vector3 p4 = VectorCircumcenter3D(p0, p1, p2, p3);
             this.points[n].SetPosition(p4);
+        }
+    }
+
+    public int GetMovingPoint()
+    {
+        return this.movingPoint;
+    }
+
+    public void ChangeMovingPoint()
+    {
+        Vector3 nowPosition = this.oculusTouch.GetPositionR();
+        if (Vector3.Distance(this.points[0].GetPosition(), nowPosition) < 0.05f)
+        {
+            this.movingPoint = 0;
+        }
+        else if (Vector3.Distance(this.points[1].GetPosition(), nowPosition) < 0.05f)
+        {
+            this.movingPoint = 1;
+        }
+        else if (Vector3.Distance(this.points[2].GetPosition(), nowPosition) < 0.05f)
+        {
+            this.movingPoint = 2;
+        }
+        else if (Vector3.Distance(this.points[3].GetPosition(), nowPosition) < 0.05f)
+        {
+            this.movingPoint = 3;
+        }
+        else
+        {
+            this.movingPoint = -1;
         }
     }
 

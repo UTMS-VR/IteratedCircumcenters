@@ -9,7 +9,6 @@ public class Main : MonoBehaviour
 {
     private OculusTouch oculusTouch;
     private ContextMenu.ContextMenu contextMenu;
-    private int state = -1;
     private Points points;
     private Tetrahedra tetrahedra;
     private int numberOfPoints = 11;
@@ -47,19 +46,6 @@ public class Main : MonoBehaviour
 
         this.points = new Points(this.oculusTouch, point0, point1, point2, point3, this.numberOfPoints);
 
-        // this.contextMenu.AddItem(new MenuItem("P" + 0, () => {
-        //     this.state = 0;
-        // }));
-        // this.contextMenu.AddItem(new MenuItem("P" + 1, () => {
-        //     this.state = 1;
-        // }));
-        // this.contextMenu.AddItem(new MenuItem("P" + 2, () => {
-        //     this.state = 2;
-        // }));
-        // this.contextMenu.AddItem(new MenuItem("P" + 3, () => {
-        //     this.state = 3;
-        // }));
-
         this.tetrahedra = new Tetrahedra(this.points);
     }
 
@@ -71,34 +57,14 @@ public class Main : MonoBehaviour
 
         if (oculusTouch.GetButtonDown(Point.moveButton))
         {
-            Vector3 nowPosition = this.oculusTouch.GetPositionR();
-            if (Vector3.Distance(this.points.Get(0).GetPosition(), nowPosition) < 0.05f)
-            {
-                this.state = 0;
-            }
-            else if (Vector3.Distance(this.points.Get(1).GetPosition(), nowPosition) < 0.05f)
-            {
-                this.state = 1;
-            }
-            else if (Vector3.Distance(this.points.Get(2).GetPosition(), nowPosition) < 0.05f)
-            {
-                this.state = 2;
-            }
-            else if (Vector3.Distance(this.points.Get(3).GetPosition(), nowPosition) < 0.05f)
-            {
-                this.state = 3;
-            }
-            else
-            {
-                this.state = -1;
-            }
+            this.points.ChangeMovingPoint();
         }
 
         for (int i = 0; i < 4; i++)
         {
-            if (this.state == i)
+            if (this.points.GetMovingPoint() == i)
             {
-                this.points.Move(i);
+                this.points.Move(this.points.GetMovingPoint());
             }
         }
 
