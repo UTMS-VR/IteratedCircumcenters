@@ -11,7 +11,6 @@ public class Point
     private Vector3 moveBaseHandPosition = Vector3.zero;
     private GameObject sphere;
     private Tag tag;
-    private int number;
     public static LogicalButton moveButton = LogicalOVRInput.RawButton.RIndexTrigger;
     public Point(OculusTouch oculusTouch, Vector3 position, int number)
     {
@@ -21,7 +20,6 @@ public class Point
         this.sphere.transform.position = this.position;
         this.sphere.transform.localScale = new Vector3(1, 1, 1) * 0.03f;
         this.tag = new Tag(number.ToString(), this.position + new Vector3(0, 0.05f, 0));
-        this.number = number;
     }
 
     public void SetPosition(Vector3 position)
@@ -58,6 +56,27 @@ public class Point
             this.tag.UpdatePosition(this.position + new Vector3(0, 0.05f, 0));
         }
     }
+
+    public void MoveAsThirdPoint(Point point0, Point point1)
+    {
+        Vector3 p0 = point0.GetPosition();
+        Vector3 p1 = point1.GetPosition();
+        Vector3 p01 = (p0 + p1) / 2;
+        Vector3 u = p1 - p0;
+        Vector3 p2 = this.position;
+        this.SetPosition(p2 - u * Vector3.Dot(p2 - p01, u) / Vector3.Dot(u, u));
+    }
+
+    public void MoveAsForthPoint(Point point0, Point point1, Point point2)
+    {
+        Vector3 p0 = point0.GetPosition();
+        Vector3 p1 = point1.GetPosition();
+        Vector3 p2 = point2.GetPosition();
+        Vector3 c = Circumcenter.VectorCircumcenterOfTriangle(p0, p1, p2);
+        Vector3 p3 = Vector3.Cross(p1 - p0, p2 - p0) + p0;
+        Vector3 p4 = this.position;
+        this.SetPosition(c + (p3 - p0) * Vector3.Dot(p3 - p0, p4 - p0) / Vector3.Dot(p3 - p0, p3 - p0));
+    }
 }
 
 public class Points 
@@ -73,6 +92,9 @@ public class Points
         this.points.Add(point1);
         this.points.Add(point2);
         this.points.Add(point3);
+
+        this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
+        this.points[3].MoveAsForthPoint(this.points[0], this.points[1], this.points[2]);
 
         for (int i = 4; i < numberOfPoints; i++)
         {
@@ -93,7 +115,7 @@ public class Points
         Vector3 p1 = this.points[i - 3].GetPosition();
         Vector3 p2 = this.points[i - 2].GetPosition();
         Vector3 p3 = this.points[i - 1].GetPosition();
-        Vector3 p4 = VectorCircumcenter3D(p0, p1, p2, p3);
+        Vector3 p4 = Circumcenter.VectorCircumcenterOfTetrahedron(p0, p1, p2, p3);
         this.points.Add(new Point(this.oculusTouch, p4, n));
     }
 
@@ -114,13 +136,15 @@ public class Points
 
     public void Update()
     {
+        this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
+        this.points[3].MoveAsForthPoint(this.points[0], this.points[1], this.points[2]);
         for (int n = 4; n < this.points.Count; n++)
         {
             Vector3 p0 = this.points[n - 4].GetPosition();
             Vector3 p1 = this.points[n - 3].GetPosition();
             Vector3 p2 = this.points[n - 2].GetPosition();
             Vector3 p3 = this.points[n - 1].GetPosition();
-            Vector3 p4 = VectorCircumcenter3D(p0, p1, p2, p3);
+            Vector3 p4 = Circumcenter.VectorCircumcenterOfTetrahedron(p0, p1, p2, p3);
             this.points[n].SetPosition(p4);
         }
     }
@@ -153,26 +177,5 @@ public class Points
         {
             this.movingPoint = -1;
         }
-    }
-
-    private float[] VectorToArray(Vector3 p)
-    {
-        return new float[3] { p.x, p.y, p.z };
-    }
-
-    private Vector3 ArrayToVector(float[] p)
-    {
-        return new Vector3(p[0], p[1], p[2]);
-    }
-
-    private Vector3 VectorCircumcenter3D(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
-    {
-        float[] q0 = VectorToArray(p0);
-        float[] q1 = VectorToArray(p1);
-        float[] q2 = VectorToArray(p2);
-        float[] q3 = VectorToArray(p3);
-        float[] q4 = Circumcenter.Circumcenter3D(q0, q1, q2, q3);
-        Vector3 p4 = ArrayToVector(q4);
-        return p4;
     }
 }
