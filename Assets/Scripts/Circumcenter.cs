@@ -13,11 +13,11 @@ public class Circumcenter
         float[][] mat = new float[3][] { p01, p02, p03 };
         float det = MatrixCalculation3D.Determinant(mat);
         float[] center;
-        if (Math.Abs(det) < 0.000001f)
-        {
-            center = new float[3] { Single.MaxValue, Single.MaxValue, Single.MaxValue };
-        }
-        else
+        // if (Math.Abs(det) < 0.000001f)
+        // {
+        //     center = new float[3] { Single.MaxValue, Single.MaxValue, Single.MaxValue };
+        // }
+        // else
         {
             float[][] mattp = MatrixCalculation3D.Transpose(mat);
             float[][] b = MatrixCalculation3D.Matmul(mat, mattp);
@@ -65,11 +65,11 @@ public class Circumcenter
         };
         float det = MatrixCalculation3D.Determinant(mat);
         float[] center;
-        if (Math.Abs(det) < 0.000001f)
-        {
-            center = new float[3] { Single.MaxValue, Single.MaxValue, Single.MaxValue };
-        }
-        else
+        // if (Math.Abs(det) < 0.000001f)
+        // {
+        //     center = new float[3] { Single.MaxValue, Single.MaxValue, Single.MaxValue };
+        // }
+        // else
         {
             float[][] mattp = MatrixCalculation3D.Transpose(mat);
             float[][] b = MatrixCalculation3D.Matmul(mat, mattp);

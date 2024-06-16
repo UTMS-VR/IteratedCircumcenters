@@ -16,15 +16,15 @@ public class MatrixCalculation2D
     {
         float det = Determinant(a);
         float[][] inv;
-        if (Math.Abs(det) < 0.000001f)
-        {
-            inv = new float[2][]
-            {
-                new float[] { Single.MaxValue, Single.MaxValue },
-                new float[] { Single.MaxValue, Single.MaxValue },
-            };
-        }
-        else
+        // if (Math.Abs(det) < 0.000001f)
+        // {
+        //     inv = new float[2][]
+        //     {
+        //         new float[] { Single.MaxValue, Single.MaxValue },
+        //         new float[] { Single.MaxValue, Single.MaxValue },
+        //     };
+        // }
+        // else
         {
             inv = new float[2][] 
             {
@@ -97,16 +97,16 @@ public class MatrixCalculation3D
     {
         float det = Determinant(a);
         float[][] inv;
-        if (Math.Abs(det) < 0.000001f)
-        {
-            inv = new float[3][]
-            {
-                new float[] { Single.MaxValue, Single.MaxValue, Single.MaxValue },
-                new float[] { Single.MaxValue, Single.MaxValue, Single.MaxValue },
-                new float[] { Single.MaxValue, Single.MaxValue, Single.MaxValue },
-            };
-        }
-        else
+        // if (Math.Abs(det) < 0.000001f)
+        // {
+        //     inv = new float[3][]
+        //     {
+        //         new float[] { Single.MaxValue, Single.MaxValue, Single.MaxValue },
+        //         new float[] { Single.MaxValue, Single.MaxValue, Single.MaxValue },
+        //         new float[] { Single.MaxValue, Single.MaxValue, Single.MaxValue },
+        //     };
+        // }
+        // else
         {
             inv = new float[3][] 
             {
