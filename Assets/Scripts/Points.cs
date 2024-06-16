@@ -10,20 +10,23 @@ public class Point
     private Vector3 moveBasePosition = Vector3.zero;
     private Vector3 moveBaseHandPosition = Vector3.zero;
     private GameObject sphere;
+    private Tag tag;
     public static LogicalButton moveButton = LogicalOVRInput.RawButton.RIndexTrigger;
-    public Point(OculusTouch oculusTouch, Vector3 position)
+    public Point(OculusTouch oculusTouch, Vector3 position, int number)
     {
         this.oculusTouch = oculusTouch;
         this.position = position;
         this.sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         this.sphere.transform.position = this.position;
         this.sphere.transform.localScale = new Vector3(1, 1, 1) * 0.03f;
+        this.tag = new Tag(number.ToString(), this.position + new Vector3(0, 0.05f, 0));
     }
 
     public void SetPosition(Vector3 position)
     {
         this.position = position;
         this.sphere.transform.position = this.position;
+        this.tag.textObj.transform.position = this.position + new Vector3(0, 0.05f, 0);
     }
 
     public Vector3 GetPosition()
@@ -50,6 +53,7 @@ public class Point
         {
             this.position = this.moveBasePosition + nowPosition - this.moveBaseHandPosition;
             this.sphere.transform.position = this.position;
+            this.tag.textObj.transform.position = this.position + new Vector3(0, 0.05f, 0);
         }
     }
 }
@@ -70,7 +74,7 @@ public class Points
 
         for (int i = 4; i < numberOfPoints; i++)
         {
-            this.AddCercumcenter();
+            this.AddCercumcenter(i);
         }
 
         for (int i = 0; i < this.points.Count; i++)
@@ -80,15 +84,15 @@ public class Points
         }
     }
 
-    private void AddCercumcenter()
+    private void AddCercumcenter(int n)
     {
-        int n = this.points.Count;
-        Vector3 p0 = this.points[n - 4].GetPosition();
-        Vector3 p1 = this.points[n - 3].GetPosition();
-        Vector3 p2 = this.points[n - 2].GetPosition();
-        Vector3 p3 = this.points[n - 1].GetPosition();
+        int i = this.points.Count;
+        Vector3 p0 = this.points[i - 4].GetPosition();
+        Vector3 p1 = this.points[i - 3].GetPosition();
+        Vector3 p2 = this.points[i - 2].GetPosition();
+        Vector3 p3 = this.points[i - 1].GetPosition();
         Vector3 p4 = VectorCircumcenter3D(p0, p1, p2, p3);
-        this.points.Add(new Point(this.oculusTouch, p4));
+        this.points.Add(new Point(this.oculusTouch, p4, n));
     }
 
     public Point Get(int i)
