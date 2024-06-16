@@ -11,6 +11,7 @@ public class Point
     private Vector3 moveBaseHandPosition = Vector3.zero;
     private GameObject sphere;
     private Tag tag;
+    private int number;
     public static LogicalButton moveButton = LogicalOVRInput.RawButton.RIndexTrigger;
     public Point(OculusTouch oculusTouch, Vector3 position, int number)
     {
@@ -20,13 +21,14 @@ public class Point
         this.sphere.transform.position = this.position;
         this.sphere.transform.localScale = new Vector3(1, 1, 1) * 0.03f;
         this.tag = new Tag(number.ToString(), this.position + new Vector3(0, 0.05f, 0));
+        this.number = number;
     }
 
     public void SetPosition(Vector3 position)
     {
         this.position = position;
         this.sphere.transform.position = this.position;
-        this.tag.textObj.transform.position = this.position + new Vector3(0, 0.05f, 0);
+        this.tag.UpdatePosition(this.position + new Vector3(0, 0.05f, 0));
     }
 
     public Vector3 GetPosition()
@@ -53,7 +55,7 @@ public class Point
         {
             this.position = this.moveBasePosition + nowPosition - this.moveBaseHandPosition;
             this.sphere.transform.position = this.position;
-            this.tag.textObj.transform.position = this.position + new Vector3(0, 0.05f, 0);
+            this.tag.UpdatePosition(this.position + new Vector3(0, 0.05f, 0));
         }
     }
 }

@@ -5,7 +5,7 @@ using TMPro;
 
 public class Tag
 {
-    public GameObject textObj = new GameObject("TextMeshPro 3D Text");
+    private GameObject textObj = new GameObject("TextMeshPro 3D Text");
     private TextMeshPro textMeshPro;
 
     public Tag(string number, Vector3 position)
@@ -16,5 +16,10 @@ public class Tag
         this.textMeshPro.fontSize = 0.5f;
         this.textMeshPro.alignment = TextAlignmentOptions.Center;
         this.textMeshPro.color = Color.black;
+    }
+
+    public void UpdatePosition(Vector3 position)
+    {
+        this.textObj.transform.position = position;
     }
 }

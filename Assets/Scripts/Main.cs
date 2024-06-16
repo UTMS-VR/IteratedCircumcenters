@@ -39,9 +39,9 @@ public class Main : MonoBehaviour
         // this.contextMenu.AddItem(new MenuItem("", () => {}));
         // this.contextMenu.Open();
         
-        Point point0 = new Point(this.oculusTouch, new Vector3(0, 0, 1), 0);
-        Point point1 = new Point(this.oculusTouch, new Vector3(0.5f, 0, 0.7f), 1);
-        Point point2 = new Point(this.oculusTouch, new Vector3(-0.5f, 0, 0.7f), 2);
+        Point point0 = new Point(this.oculusTouch, new Vector3(0.5f, 0, 0.7f), 0);
+        Point point1 = new Point(this.oculusTouch, new Vector3(-0.5f, 0, 0.7f), 1);
+        Point point2 = new Point(this.oculusTouch, new Vector3(0, 0, 1.2f), 2);
         Point point3 = new Point(this.oculusTouch, new Vector3(0, 0.4f, 0.7f), 3);
 
         this.points = new Points(this.oculusTouch, point0, point1, point2, point3, this.numberOfPoints);
