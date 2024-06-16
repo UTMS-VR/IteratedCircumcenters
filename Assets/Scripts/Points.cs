@@ -54,7 +54,7 @@ public class Points
     private OculusTouch oculusTouch;
     private List<Point> points = new List<Point>();
 
-    public Points(OculusTouch oculusTouch, Point point0, Point point1, Point point2, Point point3)
+    public Points(OculusTouch oculusTouch, Point point0, Point point1, Point point2, Point point3, int numberOfPoints)
     {
         this.oculusTouch = oculusTouch;
         this.points.Add(point0);
@@ -62,7 +62,7 @@ public class Points
         this.points.Add(point2);
         this.points.Add(point3);
 
-        for (int i = 4; i < 11; i++)
+        for (int i = 4; i < numberOfPoints; i++)
         {
             this.AddCercumcenter();
         }
@@ -84,6 +84,11 @@ public class Points
         return this.points[i];
     }
 
+    public int Count()
+    {
+        return this.points.Count;
+    }
+
     public void Move(int i)
     {
         this.points[i].Move();
@@ -91,7 +96,7 @@ public class Points
 
     public void Update()
     {
-        for (int n = 4; n < 11; n++)
+        for (int n = 4; n < this.points.Count; n++)
         {
             Vector3 p0 = this.points[n - 4].GetPosition();
             Vector3 p1 = this.points[n - 3].GetPosition();

@@ -12,6 +12,7 @@ public class Main : MonoBehaviour
     private int state = -1;
     private Points points;
     private Tetrahedra tetrahedra;
+    private int numberOfPoints = 11;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +45,7 @@ public class Main : MonoBehaviour
         Point point2 = new Point(this.oculusTouch, new Vector3(-0.5f, 0, 0.7f));
         Point point3 = new Point(this.oculusTouch, new Vector3(0, 0.4f, 0.7f));
 
-        this.points = new Points(this.oculusTouch, point0, point1, point2, point3);
+        this.points = new Points(this.oculusTouch, point0, point1, point2, point3, this.numberOfPoints);
 
         this.contextMenu.AddItem(new MenuItem("P" + 0, () => {
             this.state = 0;
@@ -78,7 +79,7 @@ public class Main : MonoBehaviour
 
         this.points.Update();
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < numberOfPoints - 3; i++)
         {
             this.tetrahedra.Get(i).DrawMesh();
         }

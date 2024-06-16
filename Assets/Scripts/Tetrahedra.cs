@@ -26,7 +26,6 @@ public class Tetrahedron
 
     public void DrawMesh()
     {
-        Debug.Log((this.edges.Count, this.edges[0].Count, this.edges[1].Count, this.edges[2].Count));
         foreach (Curve edge in this.edges)
         {
             Graphics.DrawMesh(edge.GetMesh(), Vector3.zero, Quaternion.identity, Curve.CurveMaterial, 0);
@@ -40,7 +39,7 @@ public class Tetrahedra
 
     public Tetrahedra(Points points)
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < points.Count() - 3; i++)
         {
             List<Point> vertices = new List<Point>();
             for (int j = 0; j < 4; j++)
@@ -54,5 +53,10 @@ public class Tetrahedra
     public Tetrahedron Get(int i)
     {
         return this.tetrahedra[i];
+    }
+
+    public int Count()
+    {
+        return this.tetrahedra.Count;
     }
 }
