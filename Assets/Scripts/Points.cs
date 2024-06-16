@@ -91,6 +91,7 @@ public class Points
         this.points.Add(point2);
         this.points.Add(point3);
 
+        // comment out here if you want to move points without restrictions
         this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
         this.points[3].MoveAsForthPoint(this.points[0], this.points[1], this.points[2]);
 
@@ -134,8 +135,10 @@ public class Points
 
     public void Update()
     {
+        // comment out here if you want to move points without restrictions
         this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
         this.points[3].MoveAsForthPoint(this.points[0], this.points[1], this.points[2]);
+        
         for (int n = 4; n < this.points.Count; n++)
         {
             Vector3 p0 = this.points[n - 4].GetPosition();
