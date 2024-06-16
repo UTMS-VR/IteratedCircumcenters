@@ -34,9 +34,9 @@ public class Main : MonoBehaviour
             toggleMenuButton: LogicalOVRInput.RawButton.LIndexTrigger,
             lockLevel: null
         );
-        this.contextMenu.AddItem(new MenuItem("左人差し指 : メニューウィンドウの開閉", () => {}));
-        this.contextMenu.AddItem(new MenuItem("左スティック : カーソルの移動", () => {}));
-        this.contextMenu.AddItem(new MenuItem("Xボタン : 決定", () => {}));
+        this.contextMenu.AddItem(new MenuItem("left index finger : open and close the menu window", () => {}));
+        this.contextMenu.AddItem(new MenuItem("left stick : move the cursor", () => {}));
+        this.contextMenu.AddItem(new MenuItem("X : select", () => {}));
         this.contextMenu.AddItem(new MenuItem("", () => {}));
         this.contextMenu.Open();
         
@@ -79,6 +79,7 @@ public class Main : MonoBehaviour
 
         this.points.Update();
 
+        this.tetrahedra.Update(points);
         for (int i = 0; i < numberOfPoints - 3; i++)
         {
             this.tetrahedra.Get(i).DrawMesh();

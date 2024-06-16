@@ -7,20 +7,49 @@ public class Tetrahedron
 {
     private List<Curve> edges = new List<Curve>();
 
-    public Tetrahedron(List<Point> points)
+    public Tetrahedron(Point vertex0, Point vertex1, Point vertex2, Point vertex3)
     {
-        for (int i = 0; i < 3; i++)
+        Vector3 v0 = vertex0.GetPosition();
+        Vector3 v1 = vertex1.GetPosition();
+        Vector3 v2 = vertex2.GetPosition();
+        Vector3 v3 = vertex3.GetPosition();
+
+        this.edges.Add(Edge(v0, v1));
+        this.edges.Add(Edge(v0, v2));
+        this.edges.Add(Edge(v0, v3));
+        this.edges.Add(Edge(v1, v2));
+        this.edges.Add(Edge(v1, v3));
+        this.edges.Add(Edge(v2, v3));
+
+        foreach (Curve edge in this.edges)
         {
-            for (int j = i + 1; j < 4; j++)
-            {
-                this.edges.Add(Edge(points[i], points[j]));
-            }
+            edge.UpdateMesh();
         }
     }
 
-    private Curve Edge(Point start, Point end)
+    public void Update(Point vertex0, Point vertex1, Point vertex2, Point vertex3)
     {
-        Curve edge = new OpenCurve(new List<Vector3> { start.GetPosition(), end.GetPosition() }, radius: 0.001f);
+        Vector3 v0 = vertex0.GetPosition();
+        Vector3 v1 = vertex1.GetPosition();
+        Vector3 v2 = vertex2.GetPosition();
+        Vector3 v3 = vertex3.GetPosition();
+
+        this.edges[0].SetPoints(new List<Vector3> { v0, v1 });
+        this.edges[1].SetPoints(new List<Vector3> { v0, v2 });
+        this.edges[2].SetPoints(new List<Vector3> { v0, v3 });
+        this.edges[3].SetPoints(new List<Vector3> { v1, v2 });
+        this.edges[4].SetPoints(new List<Vector3> { v1, v3 });
+        this.edges[5].SetPoints(new List<Vector3> { v2, v3 });
+
+        foreach (Curve edge in this.edges)
+        {
+            edge.UpdateMesh();
+        }
+    }
+
+    private Curve Edge(Vector3 start, Vector3 end)
+    {
+        Curve edge = new OpenCurve(new List<Vector3> { start, end }, radius: 0.001f);
         return edge;
     }
 
@@ -41,12 +70,12 @@ public class Tetrahedra
     {
         for (int i = 0; i < points.Count() - 3; i++)
         {
-            List<Point> vertices = new List<Point>();
-            for (int j = 0; j < 4; j++)
-            {
-                vertices.Add(points.Get(i + j));
-            }
-            this.tetrahedra.Add(new Tetrahedron(vertices));
+            Point vertex0 = points.Get(i);
+            Point vertex1 = points.Get(i + 1);
+            Point vertex2 = points.Get(i + 2);
+            Point vertex3 = points.Get(i + 3);
+
+            this.tetrahedra.Add(new Tetrahedron(vertex0, vertex1, vertex2, vertex3));
         }
     }
 
@@ -58,5 +87,18 @@ public class Tetrahedra
     public int Count()
     {
         return this.tetrahedra.Count;
+    }
+
+    public void Update(Points points)
+    {
+        for (int i = 0; i < points.Count() - 3; i++)
+        {
+            Point vertex0 = points.Get(i);
+            Point vertex1 = points.Get(i + 1);
+            Point vertex2 = points.Get(i + 2);
+            Point vertex3 = points.Get(i + 3);
+
+            this.tetrahedra[i].Update(vertex0, vertex1, vertex2, vertex3);
+        }
     }
 }
