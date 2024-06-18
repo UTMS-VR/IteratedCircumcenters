@@ -82,6 +82,7 @@ public class Points
     private OculusTouch oculusTouch;
     private List<Point> points = new List<Point>();
     private int movingPoint = -1;
+    private int restrictionState = 0;
 
     public Points(OculusTouch oculusTouch, Point point0, Point point1, Point point2, Point point3, int numberOfPoints)
     {
@@ -91,9 +92,11 @@ public class Points
         this.points.Add(point2);
         this.points.Add(point3);
 
-        // comment out here if you want to move points without restrictions
-        this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
-        this.points[3].MoveAsForthPoint(this.points[0], this.points[1], this.points[2]);
+        if (this.restrictionState == 1)
+        {
+            this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
+            this.points[3].MoveAsForthPoint(this.points[0], this.points[1], this.points[2]);
+        }
 
         for (int i = 4; i < numberOfPoints; i++)
         {
@@ -135,9 +138,11 @@ public class Points
 
     public void Update()
     {
-        // comment out here if you want to move points without restrictions
-        this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
-        this.points[3].MoveAsForthPoint(this.points[0], this.points[1], this.points[2]);
+        if (this.restrictionState == 1)
+        {
+            this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
+            this.points[3].MoveAsForthPoint(this.points[0], this.points[1], this.points[2]);
+        }
         
         for (int n = 4; n < this.points.Count; n++)
         {
@@ -178,5 +183,15 @@ public class Points
         {
             this.movingPoint = -1;
         }
+    }
+
+    public void RestrictionStateOn() 
+    {
+        this.restrictionState = 1;
+    }
+
+    public void  RestrictionStateOff()
+    {
+        this.restrictionState = 0;
     }
 }

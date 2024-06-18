@@ -8,7 +8,7 @@ using DrawCurve;
 public class Main : MonoBehaviour
 {
     private OculusTouch oculusTouch;
-    // private ContextMenu.ContextMenu contextMenu;
+    private ContextMenu.ContextMenu contextMenu;
     private Points points;
     private Tetrahedra tetrahedra;
     private int numberOfPoints = 11;
@@ -25,19 +25,25 @@ public class Main : MonoBehaviour
             handSpeed: 0.01f
         );
 
-        // this.contextMenu = new ContextMenu.ContextMenu(
-        //     this.oculusTouch,
-        //     upButton: LogicalOVRInput.RawButton.LStickUp,
-        //     downButton: LogicalOVRInput.RawButton.LStickDown,
-        //     confirmButton: LogicalOVRInput.RawButton.X,
-        //     toggleMenuButton: LogicalOVRInput.RawButton.LIndexTrigger,
-        //     lockLevel: null
-        // );
-        // this.contextMenu.AddItem(new MenuItem("left index finger : open and close the menu window", () => {}));
+        this.contextMenu = new ContextMenu.ContextMenu(
+            this.oculusTouch,
+            upButton: LogicalOVRInput.RawButton.LStickUp,
+            downButton: LogicalOVRInput.RawButton.LStickDown,
+            confirmButton: LogicalOVRInput.RawButton.X,
+            toggleMenuButton: LogicalOVRInput.RawButton.LIndexTrigger,
+            lockLevel: null
+        );
+        this.contextMenu.AddItem(new MenuItem("left index finger : open and close the menu window", () => {}));
         // this.contextMenu.AddItem(new MenuItem("left stick : move the cursor", () => {}));
-        // this.contextMenu.AddItem(new MenuItem("X : select", () => {}));
-        // this.contextMenu.AddItem(new MenuItem("", () => {}));
-        // this.contextMenu.Open();
+        this.contextMenu.AddItem(new MenuItem("X : select", () => {}));
+        this.contextMenu.AddItem(new MenuItem("", () => {}));
+        this.contextMenu.AddItem(new MenuItem("restriction on", () => {
+            this.points.RestrictionStateOn();
+        }));
+        this.contextMenu.AddItem(new MenuItem("restriction off", () => {
+            this.points.RestrictionStateOff();
+        }));
+        this.contextMenu.Open();
         
         Point point0 = new Point(this.oculusTouch, new Vector3(0.5f, 0, 0.7f), 0);
         Point point1 = new Point(this.oculusTouch, new Vector3(-0.5f, 0, 0.7f), 1);
@@ -53,7 +59,14 @@ public class Main : MonoBehaviour
     void Update()
     {
         this.oculusTouch.UpdateFirst();
-        // this.contextMenu.Update();
+        if (this.contextMenu.cursorIndex == 0)
+        {
+            this.contextMenu.cursorIndex = 3;
+        } else if (this.contextMenu.cursorIndex < 3)
+        {
+            this.contextMenu.cursorIndex = 4;
+        }
+        this.contextMenu.Update();
 
         if (oculusTouch.GetButtonDown(Point.moveButton))
         {
