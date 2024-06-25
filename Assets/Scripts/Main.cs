@@ -13,7 +13,7 @@ public class Main : MonoBehaviour
     private Points points;
     private Tetrahedra tetrahedra;
     private int numberOfPoints = 11;
-    private MenuItem ratio = new MenuItem("", () => {});
+    private MenuItem reductionRatio = new MenuItem("", () => {});
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +39,7 @@ public class Main : MonoBehaviour
         // this.contextMenu.AddItem(new MenuItem("left stick : move the cursor", () => {}));
         this.contextMenu.AddItem(new MenuItem("X : select", () => {}));
         this.contextMenu.AddItem(new MenuItem("", () => {}));
-        this.contextMenu.AddItem(this.ratio);
+        this.contextMenu.AddItem(this.reductionRatio);
         this.contextMenu.AddItem(new MenuItem("cos^5 pi/5 = " + Math.Pow(Math.Cos(Math.PI / 5), 5), () => {}));
         this.contextMenu.AddItem(new MenuItem("restriction on", () => {
             this.points.RestrictionStateOn();
@@ -87,8 +87,8 @@ public class Main : MonoBehaviour
 
         this.points.Update();
 
-        float ratio5601 = this.points.Ratio();
-        this.contextMenu.ChangeItemMessage(this.ratio, "四面体0123 : 四面体5678 = 1 : " + ratio5601);
+        float ratio5601 = this.points.ReductionRatio();
+        this.contextMenu.ChangeItemMessage(this.reductionRatio, "四面体0123 : 四面体5678 = 1 : " + ratio5601);
 
         this.tetrahedra.Update(points);
         for (int i = 0; i < numberOfPoints - 3; i++)
