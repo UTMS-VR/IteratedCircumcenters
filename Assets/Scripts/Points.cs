@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -124,6 +125,20 @@ public class Points
     public Point Get(int i)
     {
         return this.points[i];
+    }
+
+    public float Distance(int i, int j)
+    {
+        float dist = Vector3.Distance(this.points[i].GetPosition(), this.points[j].GetPosition());
+        return (float)Math.Round(dist, 2);
+    }
+
+    public float Ratio()
+    {
+        float dist01 = Distance(0, 1);
+        float dist56 = Distance(5, 6);
+        return dist56 / dist01;
+        // return (float)Math.Round(dist56 / dist01, 2);
     }
 
     public int Count()

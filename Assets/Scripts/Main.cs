@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class Main : MonoBehaviour
     private Points points;
     private Tetrahedra tetrahedra;
     private int numberOfPoints = 11;
+    private MenuItem ratio = new MenuItem("", () => {});
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,8 @@ public class Main : MonoBehaviour
         // this.contextMenu.AddItem(new MenuItem("left stick : move the cursor", () => {}));
         this.contextMenu.AddItem(new MenuItem("X : select", () => {}));
         this.contextMenu.AddItem(new MenuItem("", () => {}));
+        this.contextMenu.AddItem(this.ratio);
+        this.contextMenu.AddItem(new MenuItem("cos^5 pi/5 = " + Math.Pow(Math.Cos(Math.PI / 5), 5), () => {}));
         this.contextMenu.AddItem(new MenuItem("restriction on", () => {
             this.points.RestrictionStateOn();
         }));
@@ -45,10 +49,10 @@ public class Main : MonoBehaviour
         }));
         this.contextMenu.Open();
         
-        Point point0 = new Point(this.oculusTouch, new Vector3(0.5f, 0, 0.7f), 0);
-        Point point1 = new Point(this.oculusTouch, new Vector3(-0.5f, 0, 0.7f), 1);
-        Point point2 = new Point(this.oculusTouch, new Vector3(0, 0, 1.2f), 2);
-        Point point3 = new Point(this.oculusTouch, new Vector3(0, 0.4f, 0.7f), 3);
+        Point point0 = new Point(this.oculusTouch, new Vector3(0.4f, 0, 0.3f), 0);
+        Point point1 = new Point(this.oculusTouch, new Vector3(-0.4f, 0, 0.3f), 1);
+        Point point2 = new Point(this.oculusTouch, new Vector3(0, 0, 0.7f), 2);
+        Point point3 = new Point(this.oculusTouch, new Vector3(0, 0.3f, 0.3f), 3);
 
         this.points = new Points(this.oculusTouch, point0, point1, point2, point3, this.numberOfPoints);
 
@@ -59,13 +63,13 @@ public class Main : MonoBehaviour
     void Update()
     {
         this.oculusTouch.UpdateFirst();
-        if (this.contextMenu.cursorIndex == 0)
-        {
-            this.contextMenu.cursorIndex = 3;
-        } else if (this.contextMenu.cursorIndex < 3)
-        {
-            this.contextMenu.cursorIndex = 4;
-        }
+        // if (this.contextMenu.cursorIndex == 0)
+        // {
+        //     this.contextMenu.cursorIndex = 3;
+        // } else if (this.contextMenu.cursorIndex < 3)
+        // {
+        //     this.contextMenu.cursorIndex = 4;
+        // }
         this.contextMenu.Update();
 
         if (oculusTouch.GetButtonDown(Point.moveButton))
@@ -82,6 +86,9 @@ public class Main : MonoBehaviour
         }
 
         this.points.Update();
+
+        float ratio5601 = this.points.Ratio();
+        this.contextMenu.ChangeItemMessage(this.ratio, "四面体0123 : 四面体5678 = 1 : " + ratio5601);
 
         this.tetrahedra.Update(points);
         for (int i = 0; i < numberOfPoints - 3; i++)
