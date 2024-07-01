@@ -41,6 +41,7 @@ public class Main : MonoBehaviour
         this.contextMenu.AddItem(new MenuItem("", () => {}));
         this.contextMenu.AddItem(this.reductionRatio);
         this.contextMenu.AddItem(new MenuItem("cos^5 pi/5 = " + Math.Pow(Math.Cos(Math.PI / 5), 5), () => {}));
+        this.contextMenu.AddItem(new MenuItem("", () => {}));
         this.contextMenu.AddItem(new MenuItem("no restriction", () => {
             this.points.restrictionState = 0;
         }));
@@ -66,13 +67,13 @@ public class Main : MonoBehaviour
     void Update()
     {
         this.oculusTouch.UpdateFirst();
-        // if (this.contextMenu.cursorIndex == 0)
-        // {
-        //     this.contextMenu.cursorIndex = 3;
-        // } else if (this.contextMenu.cursorIndex < 3)
-        // {
-        //     this.contextMenu.cursorIndex = 4;
-        // }
+        if (this.contextMenu.cursorIndex == 0)
+        {
+            this.contextMenu.cursorIndex = 6;
+        } else if (this.contextMenu.cursorIndex < 6)
+        {
+            this.contextMenu.cursorIndex = 8;
+        }
         this.contextMenu.Update();
 
         if (oculusTouch.GetButtonDown(Point.moveButton))
