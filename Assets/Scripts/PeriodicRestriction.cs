@@ -5,23 +5,23 @@ using UnityEngine;
 
 public class PeriodicRestriction
 {
-    public static float[] NewPoint(float[] p0, float[] p1, float[] p2, float[] p3, float[] q0, float[] q1, float[] q2)
+    private static float[] NewPoint(float[] p0, float[] p1, float[] p2, float[] p3, float[] q0, float[] q1, float[] q2)
     {
-        float b0 = AuxiliaryVariable(p1, p2, p3);
-        float a1 = AuxiliaryVariable(q0, q1, q2);
-        (float, float) b1Candidate = SolutionOfQuadraticEquation(32 * a1, 32 * a1 * a1 - 31 * a1 - 1, - a1 + 1);
+        float bp = AuxiliaryVariable(p1, p2, p3);
+        float aq = AuxiliaryVariable(q0, q1, q2);
+        (float, float) bqCandidate = SolutionOfQuadraticEquation(32 * aq, 32 * aq * aq - 31 * aq - 1, - aq + 1);
 
-        float b1;
-        if (Math.Abs(b1Candidate.Item1 - b0) < Math.Abs(b1Candidate.Item2 - b0))
+        float bq;
+        if (Math.Abs(bqCandidate.Item1 - bp) < Math.Abs(bqCandidate.Item2 - bp))
         {
-            b1 = b1Candidate.Item1;
+            bq = bqCandidate.Item1;
         }
         else
         {
-            b1 = b1Candidate.Item2;
+            bq = bqCandidate.Item2;
         }
 
-        float dist = (float)Math.Sqrt(DistanceSquare(q1, q2) / (4 * b1));
+        float dist = (float)Math.Sqrt(DistanceSquare(q1, q2) / (4 * bq));
 
         float[] q3 = AuxiliaryNewPoint(p3, q0, q1, q2, dist);
 
@@ -55,11 +55,11 @@ public class PeriodicRestriction
 
         if (D > 0)
         {
-            q3 = Plus(c, ScalarMul(axis, perpendicularDist));
+            q3 = Plus(c, ScalarMul(axis, perpendicularDist / Norm(axis)));
         }
         else
         {
-            q3 = Plus(c, ScalarMul(axis, - perpendicularDist));
+            q3 = Plus(c, ScalarMul(axis, - perpendicularDist / Norm(axis)));
         }
 
         return q3;
@@ -80,9 +80,16 @@ public class PeriodicRestriction
         return new float[] { a[0] * r, a[1] * r, a[2] * r };
     }
 
+    private static float Norm(float[] a)
+    {
+        float ans = (float)Math.Sqrt(MatrixCalculation3D.Dotmul(a, a));
+        return ans;
+    }
+
     private static float DistanceSquare(float[] a, float[] b)
     {
-        float ans = (float)Math.Pow(a[0] - b[0], 2) + (float)Math.Pow(a[1] - b[1], 2) + (float)Math.Pow(a[2] - b[2], 2);
+        float[] c = Minus(a, b);
+        float ans = MatrixCalculation3D.Dotmul(c, c);
         return ans;
     }
 
@@ -99,5 +106,15 @@ public class PeriodicRestriction
         float nSol = (- b - (float)Math.Sqrt(D)) / (2 * a);
 
         return (pSol, nSol);
+    }
+
+    private static float[] VectorToArray(Vector3 p)
+    {
+        return new float[3] { p.x, p.y, p.z };
+    }
+
+    private static Vector3 ArrayToVector(float[] p)
+    {
+        return new Vector3(p[0], p[1], p[2]);
     }
 }

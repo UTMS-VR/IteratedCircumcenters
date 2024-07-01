@@ -76,12 +76,21 @@ public class Point
         Vector3 p4 = this.position;
         this.SetPosition(c + (p3 - p0) * Vector3.Dot(p3 - p0, p4 - p0) / Vector3.Dot(p3 - p0, p3 - p0));
     }
+
+    public void MoveAsPeriodicPoint(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, Point point0, Point point1, Point point2)
+    {
+        Vector3 q0 = point0.GetPosition();
+        Vector3 q1 = point1.GetPosition();
+        Vector3 q2 = point2.GetPosition();
+        this.SetPosition(PeriodicRestriction.VectorNewPoint(p0, p1, p2, p3, q0, q1, q2));
+    }
 }
 
 public class Points 
 {
     private OculusTouch oculusTouch;
     private List<Point> points = new List<Point>();
+    private List<Vector3> prePoints = new List<Vector3>();
     private int movingPoint = -1;
     public int restrictionState = 0;
 
@@ -93,10 +102,20 @@ public class Points
         this.points.Add(point2);
         this.points.Add(point3);
 
+        this.prePoints.Add(point0.GetPosition());
+        this.prePoints.Add(point1.GetPosition());
+        this.prePoints.Add(point2.GetPosition());
+        this.prePoints.Add(point3.GetPosition());
+
         if (this.restrictionState == 1)
         {
             this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
             this.points[3].MoveAsForthPoint(this.points[0], this.points[1], this.points[2]);
+        }
+        else if (this.restrictionState == 2)
+        {
+            this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
+            this.points[3].MoveAsPeriodicPoint(this.prePoints[0], this.prePoints[1], this.prePoints[2], this.prePoints[3], this.points[0], this.points[1], this.points[2]);
         }
 
         for (int i = 4; i < numberOfPoints; i++)
@@ -157,6 +176,11 @@ public class Points
             this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
             this.points[3].MoveAsForthPoint(this.points[0], this.points[1], this.points[2]);
         }
+        else if (this.restrictionState == 2)
+        {
+            this.points[2].MoveAsThirdPoint(this.points[0], this.points[1]);
+            this.points[3].MoveAsPeriodicPoint(this.prePoints[0], this.prePoints[1], this.prePoints[2], this.prePoints[3], this.points[0], this.points[1], this.points[2]);
+        }
         
         for (int n = 4; n < this.points.Count; n++)
         {
@@ -167,6 +191,14 @@ public class Points
             Vector3 p4 = Circumcenter.VectorCircumcenterOfTetrahedron(p0, p1, p2, p3);
             this.points[n].SetPosition(p4);
         }
+    }
+
+    public void Buckup()
+    {
+        this.prePoints[0] = this.points[0].GetPosition();
+        this.prePoints[1] = this.points[1].GetPosition();
+        this.prePoints[2] = this.points[2].GetPosition();
+        this.prePoints[3] = this.points[3].GetPosition();
     }
 
     public int GetMovingPoint()

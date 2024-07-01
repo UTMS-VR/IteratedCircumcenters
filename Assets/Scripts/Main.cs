@@ -80,6 +80,8 @@ public class Main : MonoBehaviour
             this.points.ChangeMovingPoint();
         }
 
+        this.points.Buckup();
+
         for (int i = 0; i < 4; i++)
         {
             if (this.points.GetMovingPoint() == i)
@@ -91,7 +93,7 @@ public class Main : MonoBehaviour
         this.points.Update();
 
         float ratio5601 = this.points.ReductionRatio();
-        this.contextMenu.ChangeItemMessage(this.reductionRatio, "四面体0123 : 四面体5678 = 1 : " + ratio5601);
+        this.contextMenu.ChangeItemMessage(this.reductionRatio, "tetrahedron 0123 : tetrahedron 5678 = 1 : " + ratio5601);
 
         this.tetrahedra.Update(points);
         for (int i = 0; i < numberOfPoints - 3; i++)
