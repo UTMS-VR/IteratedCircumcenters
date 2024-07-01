@@ -41,11 +41,14 @@ public class Main : MonoBehaviour
         this.contextMenu.AddItem(new MenuItem("", () => {}));
         this.contextMenu.AddItem(this.reductionRatio);
         this.contextMenu.AddItem(new MenuItem("cos^5 pi/5 = " + Math.Pow(Math.Cos(Math.PI / 5), 5), () => {}));
-        this.contextMenu.AddItem(new MenuItem("restriction on", () => {
-            this.points.RestrictionStateOn();
+        this.contextMenu.AddItem(new MenuItem("no restriction", () => {
+            this.points.restrictionState = 0;
         }));
-        this.contextMenu.AddItem(new MenuItem("restriction off", () => {
-            this.points.RestrictionStateOff();
+        this.contextMenu.AddItem(new MenuItem("weak restriction", () => {
+            this.points.restrictionState = 1;
+        }));
+        this.contextMenu.AddItem(new MenuItem("strong restriction", () => {
+            this.points.restrictionState = 2;
         }));
         this.contextMenu.Open();
         

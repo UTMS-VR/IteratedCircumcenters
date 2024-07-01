@@ -83,7 +83,7 @@ public class Points
     private OculusTouch oculusTouch;
     private List<Point> points = new List<Point>();
     private int movingPoint = -1;
-    private int restrictionState = 0;
+    public int restrictionState = 0;
 
     public Points(OculusTouch oculusTouch, Point point0, Point point1, Point point2, Point point3, int numberOfPoints)
     {
@@ -197,15 +197,5 @@ public class Points
         {
             this.movingPoint = -1;
         }
-    }
-
-    public void RestrictionStateOn() 
-    {
-        this.restrictionState = 1;
-    }
-
-    public void  RestrictionStateOff()
-    {
-        this.restrictionState = 0;
     }
 }

@@ -21,7 +21,7 @@ public class PeriodicRestriction
             b1 = b1Candidate.Item2;
         }
 
-        float dist = Math.Sqrt(DistanceSquare(q1, q2) / (4 * b1));
+        float dist = (float)Math.Sqrt(DistanceSquare(q1, q2) / (4 * b1));
 
         float[] q3 = AuxiliaryNewPoint(p3, q0, q1, q2, dist);
 
@@ -34,7 +34,7 @@ public class PeriodicRestriction
         float[] axis = MatrixCalculation3D.Crossmul(Minus(q1, q0), Minus(q2, q0));
         float D = MatrixCalculation3D.Dotmul(axis, Minus(p3, c));
 
-        float perpendicularDist = Math.Sqrt(Math.Pow(dist, 2), DistanceSquare(q0, c));
+        float perpendicularDist = (float)Math.Sqrt(Math.Pow(dist, 2) - DistanceSquare(q0, c));
 
         float[] q3;
 
@@ -46,6 +46,8 @@ public class PeriodicRestriction
         {
             q3 = Plus(c, ScalarMul(axis, - perpendicularDist));
         }
+
+        return q3;
     }
 
     private static float[] Plus(float[] a, float[] b)
@@ -65,11 +67,11 @@ public class PeriodicRestriction
 
     private static float DistanceSquare(float[] a, float[] b)
     {
-        float ans = Math.Pow(a[0] - b[0], 2) + Math.Pow(a[1] - b[1], 2) + Math.Pow(a[2] - b[2], 2);
+        float ans = (float)Math.Pow(a[0] - b[0], 2) + (float)Math.Pow(a[1] - b[1], 2) + (float)Math.Pow(a[2] - b[2], 2);
         return ans;
     }
 
-    private static float[] AuxiliaryVariable(float[] a, float[] b, float[] c)
+    private static float AuxiliaryVariable(float[] a, float[] b, float[] c)
     {
         float ans = DistanceSquare(a, b) / (DistanceSquare(b, c) * 4);
         return ans;
@@ -77,9 +79,9 @@ public class PeriodicRestriction
 
     private static (float, float) SolutionOfQuadraticEquation(float a, float b, float c)
     {
-        float D = Math.Pow(b, 2) - 4 * a * c;
-        float pSol = (- b + Math.Sqrt(D)) / (2 * a);
-        float nSol = (- b - Math.Sqrt(D)) / (2 * a);
+        float D = (float)Math.Pow(b, 2) - 4 * a * c;
+        float pSol = (- b + (float)Math.Sqrt(D)) / (2 * a);
+        float nSol = (- b - (float)Math.Sqrt(D)) / (2 * a);
 
         return (pSol, nSol);
     }
