@@ -28,6 +28,21 @@ public class PeriodicRestriction
         return q3;
     }
 
+    public static Vector3 VectorNewPoint(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, Vector3 q0, Vector3 q1, Vector3 q2)
+    {
+        float[] r0 = VectorToArray(p0);
+        float[] r1 = VectorToArray(p1);
+        float[] r2 = VectorToArray(p2);
+        float[] r3 = VectorToArray(p3);
+        float[] s0 = VectorToArray(q0);
+        float[] s1 = VectorToArray(q1);
+        float[] s2 = VectorToArray(q2);
+        float[] s3 = NewPoint(r0, r1, r2, r3, s0, s1, s2);
+        Vector3 q3 = ArrayToVector(s3);
+
+        return q3;
+    }
+
     private static float[] AuxiliaryNewPoint(float[] p3, float[] q0, float[] q1, float[] q2, float dist)
     {
         float[] c = Circumcenter.CircumcenterOfTriangle(q0, q1, q2);
