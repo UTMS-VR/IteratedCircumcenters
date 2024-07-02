@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Circumcenter
 {
-    private static float[] CircumcenterOfTriangle(float[] p0, float[] p1, float[] p2)
+    public static float[] CircumcenterOfTriangle(float[] p0, float[] p1, float[] p2)
     {
         float[] p01 = new float[] { p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2] };
         float[] p02 = new float[] { p2[0] - p0[0], p2[1] - p0[1], p2[2] - p0[2] };
